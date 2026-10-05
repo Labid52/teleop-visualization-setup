@@ -1,0 +1,49 @@
+# Secret-free template. Render with scripts/render_mediamtx_config.py and a
+# protected environment file. Never put real values in this file.
+logLevel: info
+logDestinations: [stdout]
+
+authMethod: internal
+authInternalUsers:
+  - user: "{{MEDIA_PUBLISHER_USERNAME}}"
+    pass: "{{MEDIA_PUBLISHER_PASSWORD}}"
+    permissions:
+      - action: publish
+        path: ~^(front|left|right|cabin)$
+  - user: "{{MEDIA_READER_USERNAME}}"
+    pass: "{{MEDIA_READER_PASSWORD}}"
+    permissions:
+      - action: read
+        path: ~^(front|left|right|cabin)$
+
+api: false
+metrics: false
+pprof: false
+playback: false
+
+rtsp: false
+rtmp: false
+hls: false
+webrtc: false
+moq: false
+
+srt: true
+srtAddress: :8890
+
+paths:
+  front:
+    overridePublisher: false
+    srtPublishPassphrase: "{{FRONT_SRT_PUBLISH_PASSPHRASE}}"
+    srtReadPassphrase: "{{FRONT_SRT_READ_PASSPHRASE}}"
+  left:
+    overridePublisher: false
+    srtPublishPassphrase: "{{LEFT_SRT_PUBLISH_PASSPHRASE}}"
+    srtReadPassphrase: "{{LEFT_SRT_READ_PASSPHRASE}}"
+  right:
+    overridePublisher: false
+    srtPublishPassphrase: "{{RIGHT_SRT_PUBLISH_PASSPHRASE}}"
+    srtReadPassphrase: "{{RIGHT_SRT_READ_PASSPHRASE}}"
+  cabin:
+    overridePublisher: false
+    srtPublishPassphrase: "{{CABIN_SRT_PUBLISH_PASSPHRASE}}"
+    srtReadPassphrase: "{{CABIN_SRT_READ_PASSPHRASE}}"

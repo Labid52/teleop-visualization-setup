@@ -1,0 +1,1 @@
+"""Reusable operator-console widgets."""

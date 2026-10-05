@@ -1,0 +1,19 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link href="vendor/maplibre-gl.css" rel="stylesheet">
+<style>
+html,body,#map { margin:0; width:100%; height:100%; background:#f8f4f0; overflow:hidden; }
+body { font-family:Arial,sans-serif; }
+.maplibregl-ctrl-attrib { background:#101c2bcc!important; color:#8da6bd; font-size:10px; }
+.maplibregl-ctrl-attrib a { color:#8da6bd; }
+.maplibregl-canvas:focus { outline:none; }
+#state { position:absolute; top:14px; left:14px; padding:6px 10px; border-radius:6px;
+background:#0c1827de;color:#a9bed0;font-size:11px;letter-spacing:1px; pointer-events:none; }
+.vehicle { width:42px;height:52px;filter:drop-shadow(0 2px 5px #060e19); }
+.vehicle svg { width:100%;height:100%; }
+.vehicle.stale { opacity:.45; }
+</style></head>
+<body><div id="map"></div><div id="state">WAITING FOR POSITION</div>
+<script src="vendor/maplibre-gl.js"></script><script src="navigation.js"></script>
+</body></html>

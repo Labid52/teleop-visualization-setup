@@ -1,0 +1,34 @@
+# Credentials and machine-local configuration
+*.env
+*.env.*
+!.env.example
+*.key
+*.pem
+wifi_secrets.h
+network_config.h
+visualization/config/gui.local.yaml
+visualization/config/visualization.local.yaml
+
+# Python environments, caches, and test output
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.py[cod]
+
+# Runtime captures and generated media/logs
+output/
+screenshots/
+*.log
+*.mp4
+*.mkv
+*.ts
+*.pcap
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

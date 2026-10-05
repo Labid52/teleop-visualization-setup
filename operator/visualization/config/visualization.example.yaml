@@ -1,0 +1,31 @@
+source_id: onboard_pc
+
+camera:
+  provider: mock
+  device: 0
+  source_id: onboard_camera
+  width: 640
+  height: 360
+  target_fps: 20
+  queue_size: 3
+  jpeg_quality: 80
+
+gps:
+  provider: mock
+  source_id: onboard_gps
+  target_hz: 10
+  origin_latitude: 35.0
+  origin_longitude: -97.0
+  speed_mps: 4.0
+  heading_deg: 45.0
+
+telemetry:
+  target_hz: 10
+  queue_size: 20
+  local_host: 127.0.0.1
+  local_port: 8765
+
+video:
+  diagnostic_mode: true
+  local_host: 127.0.0.1
+  local_port: 8766

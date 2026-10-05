@@ -1,0 +1,58 @@
+# Validated video capture/encode settings (see docs/HARDWARE_BASELINE.md and
+# docs/ENCODER_VALIDATION.md). Do not raise resolution/FPS beyond these
+# validated values without re-running the four-camera regression test.
+
+capture:
+  width: 800
+  height: 600
+  framerate: 20
+
+encoder:
+  bitrate: 4000000
+  # nvv4l2h264enc property names, confirmed via `gst-inspect-1.0 nvv4l2h264enc`
+  # on this exact installed plugin version (do not guess these):
+  #   idrinterval    - IDR frame occurrence frequency (frames)
+  #   iframeinterval - intra-frame occurrence frequency (frames)
+  #   insert-sps-pps - insert SPS/PPS at every IDR frame
+  # ~1 second IDR spacing at 20 FPS, per docs/JETSON_WAN_HANDOFF.md section 3.
+  idr_interval_frames: 20
+  iframe_interval_frames: 20
+  insert_sps_pps: true
+  # Level 3B1-B3: MediaMTX/mediacommon's H.264 DTSExtractor closed readers
+  # with "too many reordered frames" while deriving DTS from picture-order-
+  # count (POC), even though no B-frames/PTS/DTS regressions were observed
+  # client-side. poc-type=2 (confirmed present via `gst-inspect-1.0
+  # nvv4l2h264enc`, range 0-2, default 0) makes coding/decoding order equal
+  # to display order, letting the extractor bypass POC/DTS reconstruction.
+  # This is the ONE property changed for this fix.
+  poc_type: 2
+
+h264parse:
+  # -1 = send SPS/PPS with every IDR frame. Confirmed supported via
+  # `gst-inspect-1.0 h264parse` on this installed version.
+  config_interval: -1
+  # Explicit output caps required by mpegtsmux's video/x-h264 sink pad
+  # template (confirmed via `gst-inspect-1.0 mpegtsmux`) — do not leave this
+  # to implicit negotiation (Level 3B1-B2: this was the root cause of
+  # MediaMTX's MPEG-TS PES parsing errors during remote validation).
+  stream_format: byte-stream
+  alignment: au
+
+mpegts:
+  # Confirmed via `gst-inspect-1.0 mpegtsmux`: "Number of packets per buffer
+  # ... (-1 = auto, 0 = all available packets, 7 for UDP streaming)". SRT
+  # runs over UDP; 7 * 188-byte TS packets = 1316 bytes, matching the
+  # validated SRT pkt_size below exactly. Leaving this at the default -1
+  # (auto) was the confirmed root cause of the remote-validation failure.
+  alignment: 7
+  # pat-interval/pmt-interval are in ticks of the 90kHz MPEG-TS clock
+  # (confirmed via `gst-inspect-1.0 mpegtsmux`), so 9000 ticks = 100ms —
+  # well within the sub-second-to-~1s repetition this needs for a late
+  # reader to discover the program quickly. This matches the element's own
+  # default; set explicitly here so it's not left implicit.
+  pat_interval_ticks: 9000
+  pmt_interval_ticks: 9000
+
+srt:
+  pkt_size: 1316
+  pbkeylen: 32

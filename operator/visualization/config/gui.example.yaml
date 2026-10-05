@@ -1,0 +1,36 @@
+window:
+  fullscreen: false
+  width: 1600
+  height: 900
+  minimum_width: 1180
+  minimum_height: 720
+
+cameras:
+  front:
+    enabled: true
+    target_fps: 20
+  left:
+    enabled: true
+    target_fps: 18
+  right:
+    enabled: true
+    target_fps: 18
+  cabin:
+    enabled: true
+    target_fps: 16
+
+gps:
+  enabled: true
+  target_hz: 10
+
+ui:
+  show_network_panel: true
+  show_event_log: true
+  maximum_events: 80
+
+provisional_button_actions:
+  L2: NEAR_LEFT
+  L3: FAR_LEFT
+  R2: NEAR_RIGHT
+  R3: FAR_RIGHT
+  TRIANGLE: ABORT

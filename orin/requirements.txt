@@ -1,0 +1,9 @@
+# Project-owned Python dependencies only. Install with
+# `python -m pip install -r requirements.txt` inside the activated .venv.
+#
+# Do NOT add ROS2, GStreamer, NVIDIA/CUDA, or Jetson multimedia packages here —
+# those are system-managed (see docs/DEVELOPMENT_ENVIRONMENT.md). yaml, psutil,
+# and pytest are already provided by the system site-packages inherited via
+# --system-site-packages and are intentionally not pinned here.
+
+websockets==15.0.1

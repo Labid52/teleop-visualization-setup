@@ -1,0 +1,26 @@
+[Unit]
+Description=Teleoperation visualization MediaMTX SRT relay
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=teleop-visualization
+Group=teleop-visualization
+ExecStart=/opt/teleop-visualization/mediamtx/mediamtx /etc/teleop-visualization/mediamtx.yml
+Restart=on-failure
+RestartSec=2s
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

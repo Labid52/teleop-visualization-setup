@@ -1,0 +1,9 @@
+/config/visualization.yaml
+/config/gui.yaml
+/output/
+*.avi
+*.mp4
+*.mkv
+*.pcap
+__pycache__/
+.pytest_cache/
